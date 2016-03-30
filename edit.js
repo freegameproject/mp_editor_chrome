@@ -150,6 +150,13 @@ G.prototype = {
             return obj.innerText;
         }, null, v);
     },
+    val: function (v) {
+        return this.setget(function (obj) {
+            obj.value = v;
+        }, function (obj) {
+            return obj.value;
+        }, null, v);
+    },
 
     css: function (n, v) {
         return this.setget(function (obj) {
@@ -169,6 +176,7 @@ G.prototype = {
             return obj.getAttribute(n);
         }, n, v);
     },
+
     toBottom: function () {
         this.objs[0].scrollTop = 0;
     },
@@ -202,7 +210,21 @@ G.prototype = {
         var objs = [];
         objs.push(this.objs[0].contentDocument.body);
         return new G(objs);
-    }
+    },
+    size:function(){
+        return this.objs.length;
+    },
+    selectElements:function(queryText){
+        var objs = [];
+        var elements=this.objs[0].contentDocument.querySelectorAll(queryText);
+        for(i=0;i<elements.length;i++){
+            objs.push(elements[i]);
+
+        }
+        return new G(objs);
+    },
+
+
 }
 
 var _ = function (s) {
@@ -212,6 +234,12 @@ var _ = function (s) {
 _.new = function (s) {
     return new G(_make_element(s));
 }
+
+_.ajax=function(){
+
+}
+
+
 
 
 _.require = function (url) {
@@ -238,9 +266,9 @@ var mpedit = _("#ueditor_0");
 
 /* guanzhu */
 if (_("body").attr("bzy") != 1) {
-    _.new("div#edit_for_mp_wx_bzy").style("position: fixed;width: 100%;left: 0;right: 0;bottom: 0;margin: auto;height: 150px;background: rgba(0,0,0,0.8);").appendTo(_("body"));
+    _.new("div#edit_for_mp_wx_bzy").style("z-index:999;position: fixed;width: 100%;left: 0;right: 0;bottom: 0;margin: auto;height: 150px;background: rgba(0,0,0,0.8);").appendTo(_("body"));
     _.new("button").style("background:#fff").text("加关注").click(function ($this) {
-        mpedit.selectIframeBody().addHtml('<section style="border: 0px rgb(95, 156, 239); vertical-align: top; margin: 0.8em 0px; font-size: 1em; font-family: inherit; text-decoration: inherit; color: rgb(95, 156, 239); box-sizing: border-box; padding: 0px;" ><section style="width: 100%; border-top-width: 2px; border-top-style: solid; border-color: rgb(95, 156, 239); border-bottom-width: 2px; border-bottom-style: solid; box-sizing: border-box;" ><section style="width: 12px; height: 12px; margin: -7px 0px 5px 30%; border-left-width: 2px; border-left-style: solid; border-color: rgb(95, 156, 239); border-top-width: 2px; border-top-style: solid; -webkit-transform: rotate(45deg); box-sizing: border-box; background-color: rgb(255, 255, 255);" ><br></section><section style="text-align: center; width: 100%; margin: -0.5em 0px 0.1em; box-sizing: border-box;" ><section style="display: inline-block; vertical-align: top; box-sizing: border-box;" ><section  style="box-sizing: border-box;">点击上方<span style="color: rgb(249, 110, 87); font-size: 1.2em; box-sizing: border-box;" >“name”</span>可以订阅哦</section></section></section></section><section style="width: 0px; height: 0px; clear: both;"></section></section><p><br></p>');
+        mpedit.selectIframeBody().html('<section style="border: 0px rgb(95, 156, 239); vertical-align: top; margin: 0.8em 0px; font-size: 1em; font-family: inherit; text-decoration: inherit; color: rgb(95, 156, 239); box-sizing: border-box; padding: 0px;" ><section style="width: 100%; border-top-width: 2px; border-top-style: solid; border-color: rgb(95, 156, 239); border-bottom-width: 2px; border-bottom-style: solid; box-sizing: border-box;" ><section style="width: 12px; height: 12px; margin: -7px 0px 5px 30%; border-left-width: 2px; border-left-style: solid; border-color: rgb(95, 156, 239); border-top-width: 2px; border-top-style: solid; -webkit-transform: rotate(45deg); box-sizing: border-box; background-color: rgb(255, 255, 255);" ><br></section><section style="text-align: center; width: 100%; margin: -0.5em 0px 0.1em; box-sizing: border-box;" ><section style="display: inline-block; vertical-align: top; box-sizing: border-box;" ><section  style="box-sizing: border-box;">点击上方<span style="color: rgb(249, 110, 87); font-size: 1.2em; box-sizing: border-box;" >“name”</span>可以订阅哦</section></section></section></section><section style="width: 0px; height: 0px; clear: both;"></section></section><p><br></p>');
     }).appendTo(_("#edit_for_mp_wx_bzy"));
 
 
@@ -252,6 +280,29 @@ if (_("body").attr("bzy") != 1) {
     /* add title */
     _.new("button").style("background:#fff").text("加标题").click(function ($this) {
         mpedit.selectIframeBody().addHtml('<p><br></p><section style="border: none rgb(82, 76, 75); margin: 1.5em 0px; font-size: 75%; font-family: inherit; text-align: center; text-decoration: inherit; color: rgb(82, 76, 75); box-sizing: border-box; padding: 0px;" ><section style="width: 100%; box-sizing: border-box;" ><section style="width: 100%; float: left; border-color: rgb(82, 76, 75); box-sizing: border-box;" ><section style="float: left; width: 5%; height: 2.22em; margin-top: -0.12em; border-top-width: 2px; border-top-style: solid; border-color: rgb(82, 76, 75); border-bottom-width: 2px; border-bottom-style: solid; border-left-width: 2px; border-left-style: solid; box-sizing: border-box;" ></section><section style="float: left; height: 2em; width: 90%; border-color: rgb(82, 76, 75); box-sizing: border-box;" ><section style="width: 100%; height: 1em; margin-top: -1em; border-top-width: 2px; border-top-style: solid; border-color: rgb(82, 76, 75); border-left-width: 2px; border-left-style: solid; border-right-width: 2px; border-right-style: solid; box-sizing: border-box;" ></section><section style="width: 100%; height: 1em; margin-top: 2em; border-bottom-width: 2px; border-bottom-style: solid; border-color: rgb(82, 76, 75); border-left-width: 2px; border-left-style: solid; border-right-width: 2px; border-right-style: solid; box-sizing: border-box;" ></section></section><section style="float: left; width: 5%; height: 2.22em; margin-top: -0.12em; border-top-width: 2px; border-top-style: solid; border-color: rgb(82, 76, 75); border-bottom-width: 2px; border-bottom-style: solid; border-right-width: 2px; border-right-style: solid; box-sizing: border-box;" ></section><section style="clear: both; box-sizing: border-box;" ></section></section><section style="width: 96%; float: left; height: 3em; margin-left: 2%; margin-top: -2.6em; line-height: 3em; border: 2px solid rgb(82, 76, 75); overflow: hidden; box-sizing: border-box;" ><section  style="box-sizing: border-box;"><strong><span style="font-size: 14px; line-height: 24px; text-align: center; color: rgb(147, 137, 83);">​title</span></strong></section></section></section><section style="width: 0px; height: 0px; clear: both;"></section></section><p><br></p>');
+    }).appendTo(_("#edit_for_mp_wx_bzy"));
+
+    /* add title */
+    _.new("button").style("background:#fff").text("加标题 （序列）").click(function ($this) {
+
+        var count=mpedit.selectElements('.wxqq-bg').size();
+
+        count+=1;
+
+        mpedit.selectIframeBody().addHtml('<p><br></p><section style="margin: 0.8em 0px 0.5em;"><section class="wxqq-bg" style="border-radius: 2em; width: 2.5em; height: 2.5em; text-align: center; vertical-align: top; display: inline-block; background-color: rgb(235, 35, 0);"><section style="width: 100%; display: table;"><section style="color: rgb(255, 255, 255); line-height: 1.3em; font-family: inherit; font-size: 2em; font-style: normal; font-weight: bolder; vertical-align: middle; display: table-cell;">'+count+'</section></section></section><section style="padding-top: 0.3em; margin-left: 0.7em; display: inline-block;"><section class="wxqq-color" style="color: rgb(235, 35, 0); line-height: 1.4em; font-family: inherit; font-size: 1.5em; font-style: normal;">标题</section></section></section><p><br></p>');
+
+        ueditor_0.contentDocument.body.scrollTop=ueditor_0.contentDocument.body.clientHeight;
+    }).appendTo(_("#edit_for_mp_wx_bzy"));
+
+    //ueditor_0.contentDocument.body.getElementsByTagName("iframe")
+
+    _.new("textarea#mp_bzy_video").style("background:#fff;width:500px;height:80px").appendTo(_("#edit_for_mp_wx_bzy"));
+    _.new("button").style("background:#fff").text("加标video").click(function ($this) {
+        var video=_("#mp_bzy_video").val();
+        video=video.replace("video_iframe","");
+        mpedit.selectIframeBody().addHtml('<p>'+video+'</p>');
+        ueditor_0.contentDocument.body.scrollTop=ueditor_0.contentDocument.body.clientHeight;
+        _("#mp_bzy_video").text("");
     }).appendTo(_("#edit_for_mp_wx_bzy"));
 
     _("body").attr("bzy", 1);

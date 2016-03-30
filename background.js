@@ -5,11 +5,11 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 chrome.tabs.onUpdated.addListener(function (tab_id) {
     chrome.tabs.get(tab_id, function (tab) {
         var url = tab.url;
-        if (url.indexOf("appmsg?t=media/appmsg_edit&action=edit") != -1) {
+        if (url.indexOf("media/appmsg_edit") != -1) {
             chrome.browserAction.setIcon({tabId: tab_id, path:"icons/logoedit.png"});
             chrome.tabs.executeScript(tab.id, {file: "edit.js"});
         }
-        if (url.indexOf("about") != -1) {
+        if (url.indexOf("xixi") != -1) {
             chrome.tabs.executeScript(tab.id, {file: "about.js"});
         }
         //console.log(tab);
